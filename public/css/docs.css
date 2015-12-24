@@ -9,22 +9,22 @@
 
 @font-face {
     font-family: 'Proxima Nova';
-    src: url('../fonts/proximanova-light-webfont.eot');
-    src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/proximanova-light-webfont.woff') format('woff'),
-        url('../fonts/proximanova-light-webfont.ttf') format('truetype'),
-        url('../fonts/proximanova-light-webfont.svg#ProximaNovaLight') format('svg');
+    src: url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-light-webfont.eot');
+    src: url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-light-webfont.woff') format('woff'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-light-webfont.ttf') format('truetype'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-light-webfont.svg#ProximaNovaLight') format('svg');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Proxima Nova';
-    src: url('../fonts/proximanova-reg-webfont.eot');
-    src: url('../fonts/proximanova-reg-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/proximanova-reg-webfont.woff') format('woff'),
-        url('../fonts/proximanova-reg-webfont.ttf') format('truetype'),
-        url('../fonts/proximanova-reg-webfont.svg#ProximaNovaReg') format('svg');
+    src: url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-reg-webfont.eot');
+    src: url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-reg-webfont.eot?#iefix') format('embedded-opentype'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-reg-webfont.woff') format('woff'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-reg-webfont.ttf') format('truetype'),
+        url('http://www.tulsayeti.com/fonts/proxima-nova//proximanova-reg-webfont.svg#ProximaNovaReg') format('svg');
     font-weight: 400;
     font-style: normal;
 }
