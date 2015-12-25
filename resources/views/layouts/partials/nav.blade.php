@@ -1,20 +1,36 @@
-<nav class="tm-navbar uk-navbar uk-navbar-attached">
-    <div class="uk-container uk-container-center">
+<header class="am-topbar am-topbar-fixed-top">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="#">Amaze UI</a>
+        </h1>
 
-        <a class="uk-navbar-brand uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="docs/images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#collapse-head'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
-        <ul class="uk-navbar-nav uk-hidden-small">
-            <li><a href="principle">纪律管理</a></li>
-            <li><a href="docs/core.html">Core</a></li>
-            <li><a href="docs/components.html">Components</a></li>
-            <li><a href="docs/customizer.html">Customizer</a></li>
-            <li><a href="showcase/index.html">Showcase</a></li>
-            <li><a href="docs/tutorials.html">Tutorials</a></li>
-        </ul>
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li><a href="#">项目</a></li>
+                <li class="am-dropdown" data-am-dropdown="">
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle="" href="javascript:;">
+                        下拉菜单 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">标题</li>
+                        <li><a href="#">1. 默认样式</a></li>
+                        <li><a href="#">2. 基础设置</a></li>
+                        <li><a href="#">3. 文字排版</a></li>
+                        <li><a href="#">4. 网格系统</a></li>
+                    </ul>
+                </li>
+            </ul>
 
-        <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> 注册</button>
+            </div>
 
-        <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="docs/images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
-
+            <div class="am-topbar-right">
+                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 登录</button>
+            </div>
+        </div>
     </div>
-</nav>
+</header>
