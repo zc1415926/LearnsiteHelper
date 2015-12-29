@@ -8,15 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
 
+use App\StudentsInfo;
+
 class StudentsController extends Controller
 {
     public function students_gradeclass($grade,$class)
     {
+        $studentsArray = array();
 
         $students = DB::table('students_info')->select('Sid', 'Sname')
             ->where('Sgrade', '=', $grade)->where('Sclass', '=', $class)->get();
-
-        $studentsArray = array();
 
         foreach($students as $value)
         {
@@ -30,7 +31,25 @@ class StudentsController extends Controller
     {
         $grade = $request['Sgrade'];
         $class = $request['Sclass'];
+        $students = $request['Sstudents'];
 
-        dd($grade . " ". $class);
+        foreach($students as $student)
+        {
+            $students = StudentsInfo::create([
+                'Sid' => $student['Snum'],
+                'Sgrade' => $grade,
+                'Sclass' => $class,
+                'Sname' => $student['Sname'],
+            ]);
+
+
+        }
+
+        return "sync";
+    }
+
+    public static function getStudentsByGradeClass($grade,$class){
+
+
     }
 }

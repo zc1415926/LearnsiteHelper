@@ -2,7 +2,7 @@
 @section('content')
 
     <script>
-       /// var currentGradeClassLearnsiteStudents;
+        var currentGradeClassLearnsiteStudents;
         var currentGrade, currentClass;
         $(function() {
             var $grade_dropdown = $('#grade-dropdown'),
@@ -90,7 +90,7 @@
                 url: "http://10.1.44.111/api/students_gradeclass/" + Sgrade + "/" + Sclass,
                 success: function(data){
 
-                    //currentGradeClassLearnsiteStudents = data;
+                    currentGradeClassLearnsiteStudents = data;
                     $('#students-table-tbody tr').remove();
 
                     data.forEach(function(e){
@@ -129,7 +129,7 @@
                     });*/
                 },
                 error: function(data){
-                    console.log("get an error when request students");
+                    console.log("get an error when request local students");
                     console.log(data);
                 }
             });
@@ -144,14 +144,16 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 //datatype: "json",
-                data: {'Sgrade': currentGrade, 'Sclass': currentClass},
+                data: {'Sgrade': currentGrade, 'Sclass': currentClass, 'Sstudents':currentGradeClassLearnsiteStudents},
                 success: function(data){
                     console.log("sync");
-                    document.write(data);
+                    //document.write(data);
                 },
                 error: function(data){
                     console.log("get an error when sync students");
                     console.log(data);
+
+                   // document.write(data['responseText']);
                 }
             });
         }
