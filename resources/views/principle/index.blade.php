@@ -113,24 +113,26 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data){
-
+                    //console.log(data);
+                   // document.write(data);
 
                     if(0 == data.length)
                     {
                         $('#no-local-students-note').append('<h3 class="about-title about-color">空空如也</h3>');
                     }
-                    //$('#students-table-tbody tr').remove();
+                    $('#local-students-table-tbody tr').remove();
 
-                    /*data.forEach(function(e){
+                    data.forEach(function(e){
 
-                        $('#students-table-tbody').append('<tr><td>' + e["Snum"]
+                        $('#local-students-table-tbody').append('<tr><td>' + e["Snum"]
                                 + '</td><td>' + e["Sname"]
                                 + '</td></tr>');
-                    });*/
+                    });
                 },
                 error: function(data){
                     console.log("get an error when request local students");
                     console.log(data);
+                    document.write(data['responseText']);
                 }
             });
         }
@@ -210,7 +212,7 @@
                             <th>学号</th><th>姓名</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody  id="local-students-table-tbody">
 
                         </tbody>
                     </table>

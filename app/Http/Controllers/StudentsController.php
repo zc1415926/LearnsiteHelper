@@ -21,7 +21,7 @@ class StudentsController extends Controller
 
         foreach($students as $value)
         {
-            array_push($studentsArray, ["Snum" => $value->Snum, "Sname" => iconv('GBK','UTF-8', $value->Sname)]);
+            array_push($studentsArray, ['Snum' => $value->Sid, 'Sname' => $value->Sname]);
         }
 
         return response()->json($studentsArray);
