@@ -18,3 +18,11 @@ Route::get('/', function () {
 Route::get('principle', [
     'uses' => 'PrincipleController@index'
 ]);
+
+Route::get('students_gradeclass/{grade}/{class}', [
+    'uses' => 'StudentsController@students_gradeclass'
+]);
+
+Route::put('sync_students', [
+    'uses' => 'StudentsController@sync_students'
+]);

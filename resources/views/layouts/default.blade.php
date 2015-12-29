@@ -32,6 +32,7 @@
     <meta name="msapplication-TileColor" content="#0e90d2">
 
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.5.0/css/amazeui.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 <style>
