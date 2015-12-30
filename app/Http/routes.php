@@ -26,3 +26,7 @@ Route::get('students_gradeclass/{grade}/{class}', [
 Route::put('sync_students', [
     'uses' => 'StudentsController@sync_students'
 ]);
+
+Route::get('students_sync', function () {
+    return view('admin/students_sync');
+});
