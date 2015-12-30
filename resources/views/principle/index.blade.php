@@ -20,22 +20,17 @@
             });
         });
 
-        getGradeClass();
+        getGrade();
 
 
-        function getGradeClass()
+        function getGrade()
         {
             $.ajax({
                 type: "get",
                 url: "http://10.1.44.111/api/grade",
 
-                beforeSend: function(){
-
-                },
-
                 success: function(data){
                     data.forEach(function(e){
-
                         $("#grade-ul").append(
                                 '<li><a href="#" onclick="onGradeDropdownClicked(' + e["Sgrade"] + ')">'
                                 + e["Sgrade"]
@@ -44,7 +39,7 @@
                     });
                 },
                 error: function(data){
-                    console.log("get an error when request gradeclassdata");
+                    console.log("get an error when request grade data");
                     console.log(data);
                 }
             });
@@ -53,6 +48,11 @@
         function onGradeDropdownClicked(Sgrade)
         {
             currentGrade = Sgrade;
+
+            if(!$('#sync-from-learnsite-whole-class').hasClass('am-disabled'))
+            {
+                $('#sync-from-learnsite-whole-class').addClass('am-disabled')
+            }
 
             $("#grade-button").text(Sgrade + "年级 ")
                     .append('<span class="am-icon-caret-down"></span>');
@@ -82,6 +82,12 @@
         {
             currentClass = Sclass;
 
+            if($('#sync-from-learnsite-whole-class').hasClass('am-disabled'))
+            {
+                $('#sync-from-learnsite-whole-class').removeClass('am-disabled')
+            }
+
+
             $("#class-button").text(Sclass + "班 ")
                     .append('<span class="am-icon-caret-down"></span>');
 
@@ -106,35 +112,7 @@
                 }
             });
 
-            $.ajax({
-                type: "get",
-                url: "http://10.1.44.112/students_gradeclass/" + Sgrade + "/" + Sclass,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data){
-                    //console.log(data);
-                   // document.write(data);
-
-                    if(0 == data.length)
-                    {
-                        $('#no-local-students-note').append('<h3 class="about-title about-color">空空如也</h3>');
-                    }
-                    $('#local-students-table-tbody tr').remove();
-
-                    data.forEach(function(e){
-
-                        $('#local-students-table-tbody').append('<tr><td>' + e["Snum"]
-                                + '</td><td>' + e["Sname"]
-                                + '</td></tr>');
-                    });
-                },
-                error: function(data){
-                    console.log("get an error when request local students");
-                    console.log(data);
-                    document.write(data['responseText']);
-                }
-            });
+            getLocalStudentsByAjax(Sgrade, Sclass);
         }
 
         function onSyncFromLearnsiteWholeClassClicked()
@@ -147,15 +125,60 @@
                 },
                 //datatype: "json",
                 data: {'Sgrade': currentGrade, 'Sclass': currentClass, 'Sstudents':currentGradeClassLearnsiteStudents},
+
+                beforeSend:function(data){
+                    $('#start-sync-modal').modal('open');
+                },
                 success: function(data){
-                    console.log("sync");
-                    //document.write(data);
+                    $('#start-sync-modal').modal('close');
+                    getLocalStudentsByAjax(currentGrade, currentClass);
+                    console.log(data);
+
                 },
                 error: function(data){
                     console.log("get an error when sync students");
                     console.log(data);
 
                    // document.write(data['responseText']);
+                }
+            });
+        }
+
+        function getLocalStudentsByAjax(Sgrade, Sclass)
+        {
+            $.ajax({
+                type: "get",
+                url: "http://10.1.44.112/students_gradeclass/" + Sgrade + "/" + Sclass,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data){
+                    //console.log(data);
+                    // document.write(data);
+
+                    if(0 == data.length)
+                    {
+                        $('#no-local-students-note h3').remove();
+                        $('#no-local-students-note').append('<h3 class="about-title about-color">空空如也</h3>');
+                    }
+                    else
+                    {
+                        $('#no-local-students-note h3').remove();
+                    }
+
+                    $('#local-students-table-tbody tr').remove();
+
+                    data.forEach(function(e){
+
+                        $('#local-students-table-tbody').append('<tr><td>' + e["Snum"]
+                                + '</td><td>' + e["Sname"]
+                                + '</td></tr>');
+                    });
+                },
+                error: function(data){
+                    console.log("get an error when request local students");
+                    console.log(data);
+                    //document.write(data['responseText']);
                 }
             });
         }
@@ -186,9 +209,18 @@
                             <form class="am-form">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                                <button id="sync-from-learnsite-whole-class" type="button" class="am-btn am-btn-primary"
-                                    onclick="onSyncFromLearnsiteWholeClassClicked()">从学生网同步本班学生数据</button>
+                                <button id="sync-from-learnsite-whole-class" type="button"
+                                        class="am-btn am-btn-primary am-disabled"
+                                        onclick="onSyncFromLearnsiteWholeClassClicked()">从学生网同步本班学生数据</button>
                             </form>
+                        </div>
+                        <div class="am-dropdown">
+                            <button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#start-sync-modal', closeViaDimmer: 0, width: 400, height: 225}">测试模态窗口</button>
+                            <div class="am-modal am-modal-no-btn am-modal-out" tabindex="-1" id="start-sync-modal" style="display: none; width: 400px; margin-left: -200px; margin-top: -112px;">
+                                <div class="am-modal-dialog" style="height: 225px;"><div class="am-modal-hd">请稍等 <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></div>
+                                    <div class="am-modal-bd"><h1>正在同步学生数据。</h1></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

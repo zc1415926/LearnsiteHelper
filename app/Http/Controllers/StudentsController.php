@@ -35,14 +35,15 @@ class StudentsController extends Controller
 
         foreach($students as $student)
         {
-            $students = StudentsInfo::create([
-                'Sid' => $student['Snum'],
-                'Sgrade' => $grade,
-                'Sclass' => $class,
-                'Sname' => $student['Sname'],
-            ]);
-
-
+            if(count(StudentsInfo::where('Sid', $student['Snum'])->get()) == 0)
+            {
+                StudentsInfo::create([
+                    'Sid' => $student['Snum'],
+                    'Sgrade' => $grade,
+                    'Sclass' => $class,
+                    'Sname' => $student['Sname'],
+                ]);
+            }
         }
 
         return "sync";
